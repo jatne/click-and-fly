@@ -1,42 +1,76 @@
+const endpointAPI = 'https://api.devx.pl/api/collections/get/clickandfly';
+const tokenAPI = '7d00588bfc312fc16b35c1894b72b8';
+
+async function getImage(endpoint) {
+  const response = await fetch(endpoint);
+  const data = await response.json();
+
+  const imagesArr = [];
+
+  data.entries.forEach(entry => {
+    imagesArr.push(entry.image.path);
+  });
+
+  return imagesArr;
+}
+
+const images = getImage(`${endpointAPI}?token=${tokenAPI}`);
 const canvas = document.getElementById('app');
 
-function createAnimal(options) {
-  const figure = document.createElement('div');
+function getRandomImage(img) {
+  return img[Math.floor(Math.random() * img.length)];
+}
+
+function createFlyingObject(options) {
+  const flyingObject = document.createElement('div');
   const { positionX, positionY } = options;
-  const size = Math.floor(Math.random() * 50 + 50);
-  const figures = ['horse', 'cat', 'dog'];
-  const randomFigure = figures[Math.floor(Math.random() * figures.length)];
+  const maxSize = 150;
+  const minSize = 50;
+  const size = Math.floor(Math.random() * maxSize + minSize);
 
-  figure.classList.add('figure-temp');
-  figure.classList.add(randomFigure);
+  const maxAnimationDuration = 6000;
+  const minAnimationDuration = 3000;
+  const animationDuration =
+    Math.random() * maxAnimationDuration + minAnimationDuration;
 
-  figure.setAttribute(
+  const randomImage = getRandomImage(images);
+
+  console.log(randomImage);
+
+  flyingObject.classList.add('flying-object');
+  flyingObject.setAttribute(
     'style',
-    ` --hue: ${Math.random() * 360};
+    `
       --size: ${size}px;
       --position-x: ${positionX - size / 2}px;
       --position-y: ${positionY - size / 2}px;
-      --animation-duration: ${Math.random() * 6000 + 3000}ms;
+      --animation-duration: ${animationDuration}ms;
     `
   );
 
-  return figure;
+  return flyingObject;
 }
 
-function removeAnimal(event) {
+// function createAnimal(options) {
+
+//   // const randomFigure = figures[Math.floor(Math.random() * figures.length)];
+
+// }
+
+function removeFlyingObject(event) {
   event.currentTarget.remove();
 }
 
-function addAnimal(event) {
+function addFlyingObject(event) {
   const wrapper = event.currentTarget;
-  const newAnimal = createAnimal({
+  const newFlyingObject = createFlyingObject({
     positionX: event.clientX,
     positionY: event.clientY,
   });
 
-  newAnimal.addEventListener('animationend', removeAnimal);
+  newFlyingObject.addEventListener('animationend', removeFlyingObject);
 
-  wrapper.append(newAnimal);
+  wrapper.append(newFlyingObject);
 }
 
-canvas.addEventListener('click', addAnimal);
+canvas.addEventListener('click', addFlyingObject);
