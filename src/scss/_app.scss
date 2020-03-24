@@ -1,0 +1,55 @@
+#app {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  height: 100vh;
+  min-height: 800px;
+  overflow: hidden;
+}
+
+.figure-temp {
+  --size: 50px;
+  --animation-duration: 3s;
+
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+
+  left: var(--position-x, 0);
+  top: var(--position-y, 0);
+  animation-name: goToUp;
+  animation-duration: var(--animation-duration);
+  animation-fill-mode: forwards;
+}
+
+.circle {
+  border-radius: 100%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid hsl(var(--hue), 100%, 50%);
+}
+
+.horse,
+.cat,
+.dog {
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.horse {
+  background-image: url("../img/horse.svg");
+}
+
+.cat {
+  background-image: url("../img/cat.svg");
+}
+
+.dog {
+  background-image: url("../img/dog.svg");
+}

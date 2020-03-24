@@ -1,0 +1,12 @@
+@keyframes goToUp {
+  33% {
+    transform: translateX(calc(-25% - var(--size)));
+  }
+  66% {
+    transform: translateX(calc(25% + var(--size)));
+  }
+  100% {
+    top: calc(0px - var(--size));
+    transform: translateX(25%);
+  }
+}
