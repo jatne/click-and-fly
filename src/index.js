@@ -1,31 +1,49 @@
-const endpointAPI = 'https://api.devx.pl/api/collections/get/clickandfly';
+const baseUrl = 'https://api.devx.pl';
+const endpointAPI = `${baseUrl}/api/collections/get/clickandfly`;
 const tokenAPI = '7d00588bfc312fc16b35c1894b72b8';
 
 async function getImage(endpoint) {
   const response = await fetch(endpoint);
   const data = await response.json();
 
-  const imagesArr = [];
+  const imagesSet = [];
 
   data.entries.forEach(entry => {
-    imagesArr.push(entry.image.path);
+    const images = [];
+
+    entry.gallery.forEach(singleImage => images.push(singleImage.path));
+
+    const newData = { name: entry.name, images };
+
+    imagesSet.push(newData);
   });
 
-  return imagesArr;
+  return imagesSet;
 }
 
-const images = getImage(`${endpointAPI}?token=${tokenAPI}`);
+let images;
+getImage(`${endpointAPI}?token=${tokenAPI}`).then(
+  response => (images = response)
+);
+
 const canvas = document.getElementById('app');
 
 function getRandomImage(img) {
-  return img[Math.floor(Math.random() * img.length)];
+  const randomCategory = img[Math.floor(Math.random() * img.length)];
+
+  const randomImage =
+    randomCategory.images[
+      Math.floor(Math.random() * randomCategory.images.length)
+    ];
+
+  return `${baseUrl}${randomImage}`;
 }
 
 function createFlyingObject(options) {
   const flyingObject = document.createElement('div');
   const { positionX, positionY } = options;
-  const maxSize = 150;
-  const minSize = 50;
+  const maxSize = 350;
+  const minSize = 150;
   const size = Math.floor(Math.random() * maxSize + minSize);
 
   const maxAnimationDuration = 6000;
@@ -35,8 +53,6 @@ function createFlyingObject(options) {
 
   const randomImage = getRandomImage(images);
 
-  console.log(randomImage);
-
   flyingObject.classList.add('flying-object');
   flyingObject.setAttribute(
     'style',
@@ -45,17 +61,12 @@ function createFlyingObject(options) {
       --position-x: ${positionX - size / 2}px;
       --position-y: ${positionY - size / 2}px;
       --animation-duration: ${animationDuration}ms;
+      background-image: url(${randomImage});
     `
   );
 
   return flyingObject;
 }
-
-// function createAnimal(options) {
-
-//   // const randomFigure = figures[Math.floor(Math.random() * figures.length)];
-
-// }
 
 function removeFlyingObject(event) {
   event.currentTarget.remove();

@@ -9,6 +9,9 @@
   },
   "keywords": [],
   "author": "",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.0",
