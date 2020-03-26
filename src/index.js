@@ -29,7 +29,7 @@ getImage(`${endpointAPI}?token=${tokenAPI}`).then(
   response => (images = response)
 );
 
-function getRandomImage(img) {
+const getRandomImage = img => {
   const randomCategory = img[Math.floor(Math.random() * img.length)];
 
   const randomImage =
@@ -38,12 +38,12 @@ function getRandomImage(img) {
     ];
 
   return `${baseUrl}${randomImage}`;
-}
+};
 
-function createFlyingObject(options) {
-  const flyingObject = document.createElement('div');
+const createFlyingObject = options => {
+  const flyImg = document.createElement('img');
   const { positionX, positionY } = options;
-  const maxSize = 350;
+  const maxSize = 600;
   const minSize = 150;
   const size = Math.floor(Math.random() * maxSize + minSize);
 
@@ -54,35 +54,35 @@ function createFlyingObject(options) {
 
   const randomImage = getRandomImage(images);
 
-  flyingObject.classList.add('flying-object');
-  flyingObject.setAttribute(
+  flyImg.setAttribute('src', randomImage);
+  flyImg.classList.add('flying-object');
+
+  flyImg.setAttribute(
     'style',
     `
       --size: ${size}px;
       --position-x: ${positionX - size / 2}px;
       --position-y: ${positionY - size / 2}px;
       --animation-duration: ${animationDuration}ms;
-      background-image: url(${randomImage});
     `
   );
 
-  return flyingObject;
-}
+  return flyImg;
+};
 
-function removeFlyingObject(event) {
-  event.currentTarget.remove();
-}
+const removeFlyingObject = e => e.currentTarget.remove();
 
-function addFlyingObject(event) {
-  const wrapper = event.currentTarget;
+const addFlyingObject = e => {
+  const wrapper = e.currentTarget;
   const newFlyingObject = createFlyingObject({
-    positionX: event.clientX,
-    positionY: event.clientY,
+    positionX: e.clientX,
+    positionY: e.clientY,
   });
 
   newFlyingObject.addEventListener('animationend', removeFlyingObject);
-
-  wrapper.append(newFlyingObject);
-}
+  newFlyingObject.addEventListener('load', e =>
+    wrapper.append(e.currentTarget)
+  );
+};
 
 canvas.addEventListener('click', addFlyingObject);

@@ -27,3 +27,4 @@ _tmp
 _project
 cache
 dist
+.cache

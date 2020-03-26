@@ -8,11 +8,9 @@
 
 .flying-object {
   position: absolute;
-  width: var(--size, 50px);
-  height: var(--size, 50px);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+  display: block;
+  max-width: var(--size, 50px);
+  height: auto;
   left: var(--position-x, 0);
   top: var(--position-y, 0);
   animation-name: goToUp;
