@@ -1,6 +1,8 @@
 const baseUrl = 'https://api.devx.pl';
 const endpointAPI = `${baseUrl}/api/collections/get/clickandfly`;
 const tokenAPI = '7d00588bfc312fc16b35c1894b72b8';
+const canvas = document.getElementById('app');
+let images;
 
 async function getImage(endpoint) {
   const response = await fetch(endpoint);
@@ -9,24 +11,23 @@ async function getImage(endpoint) {
   const imagesSet = [];
 
   data.entries.forEach(entry => {
-    const images = [];
+    if (entry.is_active) {
+      const images = [];
 
-    entry.gallery.forEach(singleImage => images.push(singleImage.path));
+      entry.gallery.forEach(singleImage => images.push(singleImage.path));
 
-    const newData = { name: entry.name, images };
+      const newData = { name: entry.name, images };
 
-    imagesSet.push(newData);
+      imagesSet.push(newData);
+    }
   });
 
   return imagesSet;
 }
 
-let images;
 getImage(`${endpointAPI}?token=${tokenAPI}`).then(
   response => (images = response)
 );
-
-const canvas = document.getElementById('app');
 
 function getRandomImage(img) {
   const randomCategory = img[Math.floor(Math.random() * img.length)];
