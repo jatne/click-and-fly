@@ -73,10 +73,13 @@ const createFlyingObject = options => {
 const removeFlyingObject = e => e.currentTarget.remove();
 
 const addFlyingObject = e => {
-  const wrapper = e.currentTarget;
+  const wrapper = document.querySelector('#app');
+
+  console.log(e.target.clientWidth / 2);
+
   const newFlyingObject = createFlyingObject({
-    positionX: e.clientX,
-    positionY: e.clientY,
+    positionX: e.key ? Math.floor(e.target.clientWidth) / 2 : e.clientX,
+    positionY: e.key ? Math.floor(e.target.clientHeight) / 2 : e.clientY,
   });
 
   newFlyingObject.addEventListener('animationend', removeFlyingObject);
@@ -86,3 +89,4 @@ const addFlyingObject = e => {
 };
 
 canvas.addEventListener('click', addFlyingObject);
+document.addEventListener('keyup', addFlyingObject);
