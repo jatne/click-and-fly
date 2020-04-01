@@ -40,6 +40,20 @@ const getRandomImage = img => {
   return `${baseUrl}${randomImage}`;
 };
 
+const getRandomAnimation = () => {
+  const animations = [
+    'goToUp',
+    'goToDown',
+    'goToLeft',
+    'goToRight',
+    'zoomIn',
+    'zoomOut',
+    'fade',
+  ];
+
+  return animations[Math.floor(Math.random() * animations.length)];
+};
+
 const createFlyingObject = options => {
   const flyImg = document.createElement('img');
   const { positionX, positionY } = options;
@@ -63,6 +77,7 @@ const createFlyingObject = options => {
       --size: ${size}px;
       --position-x: ${positionX - size / 2}px;
       --position-y: ${positionY - size / 2}px;
+      --animation-name: ${getRandomAnimation()};
       --animation-duration: ${animationDuration}ms;
     `
   );
