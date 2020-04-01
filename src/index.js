@@ -47,8 +47,8 @@ const createFlyingObject = options => {
   const minSize = 150;
   const size = Math.floor(Math.random() * maxSize + minSize);
 
-  const maxAnimationDuration = 6000;
-  const minAnimationDuration = 3000;
+  const maxAnimationDuration = 8000;
+  const minAnimationDuration = 5000;
   const animationDuration =
     Math.random() * maxAnimationDuration + minAnimationDuration;
 
