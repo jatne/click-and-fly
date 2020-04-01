@@ -13,7 +13,7 @@
   height: auto;
   left: var(--position-x, 0);
   top: var(--position-y, 0);
-  animation-name: goToUp;
+  animation-name: var(--animation-name, goToUp);
   animation-duration: var(--animation-duration, 3s);
   animation-fill-mode: forwards;
 }
