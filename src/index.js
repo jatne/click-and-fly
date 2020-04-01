@@ -90,14 +90,13 @@ const removeFlyingObject = e => e.currentTarget.remove();
 const addFlyingObject = e => {
   const wrapper = document.querySelector('#app');
 
-  console.log(e.target.clientWidth / 2);
-
   const newFlyingObject = createFlyingObject({
     positionX: e.key ? Math.floor(e.target.clientWidth) / 2 : e.clientX,
     positionY: e.key ? Math.floor(e.target.clientHeight) / 2 : e.clientY,
   });
 
   newFlyingObject.addEventListener('animationend', removeFlyingObject);
+
   newFlyingObject.addEventListener('load', e =>
     wrapper.append(e.currentTarget)
   );
