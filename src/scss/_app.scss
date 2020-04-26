@@ -17,3 +17,19 @@
   animation-duration: var(--animation-duration, 3s);
   animation-fill-mode: forwards;
 }
+
+.intro {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  color: #dbdbdb;
+  cursor: default;
+
+  &--hide {
+    animation-name: hide;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+  }
+}

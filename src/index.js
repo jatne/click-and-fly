@@ -2,6 +2,7 @@ const baseUrl = 'https://api.devx.pl';
 const endpointAPI = `${baseUrl}/api/collections/get/clickandfly`;
 const tokenAPI = '7d00588bfc312fc16b35c1894b72b8';
 const canvas = document.getElementById('app');
+const intro = document.getElementById('intro');
 let images;
 
 async function getImage(endpoint) {
@@ -88,6 +89,11 @@ const createFlyingObject = options => {
 const removeFlyingObject = e => e.currentTarget.remove();
 
 const addFlyingObject = e => {
+  if (intro) {
+    intro.addEventListener('animationend', () => intro.remove());
+    intro.classList.add('intro--hide');
+  }
+
   const wrapper = document.querySelector('#app');
 
   const newFlyingObject = createFlyingObject({

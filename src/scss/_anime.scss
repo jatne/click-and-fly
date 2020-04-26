@@ -11,6 +11,13 @@
   }
 }
 
+@keyframes hide {
+  to {
+    letter-spacing: 10px;
+    opacity: 0;
+  }
+}
+
 @keyframes goToDown {
   33% {
     transform: translateX(calc(-25% - var(--size)));
