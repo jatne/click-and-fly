@@ -6,7 +6,9 @@
     "titleBar.inactiveForeground": "#e7e7e799",
     "statusBar.background": "#ff1e61",
     "statusBarItem.hoverBackground": "#ff5185",
-    "statusBar.foreground": "#e7e7e7"
+    "statusBar.foreground": "#e7e7e7",
+    "statusBar.border": "#ff1e61",
+    "titleBar.border": "#ff1e61"
   },
   "peacock.color": "FF1E61",
   "eslint.enable": true
